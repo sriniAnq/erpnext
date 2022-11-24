@@ -4,7 +4,11 @@ services:
   frappe:
     image: pipech/erpnext-docker-debian:v12-py3-latest
     deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
       replicas: 1
+
     volumes:
       - frappe-sites-volumes:/home/frappe/bench/sites
       - frappe-logs-volumes:/home/frappe/bench/logs
@@ -22,7 +26,8 @@ services:
     networks:
       #- traefik_proxy
       #- frappe_db
-      - default
+      #- default
+      - swarm-network
 
   redis-cache:
     image: redis:alpine
@@ -59,7 +64,17 @@ services:
 
 volumes:
   frappe-sites-volumes:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: nfsvers=4.1,addr=anqci.file.core.windows.net,nolock,soft,rw
+      device: ":/anqci/prod-storage/erpnext/sites"
   frappe-logs-volumes:
+      driver: local
+    driver_opts:
+      type: nfs
+      o: nfsvers=4.1,addr=anqci.file.core.windows.net,nolock,soft,rw
+      device: ":/anqci/prod-storage/erpnext/logs"
 
 configs:
   redis-cache-conf:
@@ -74,3 +89,6 @@ configs:
 #    external: true
 #  frappe_db:
 #    external: true
+networks:
+  swarm-network:
+    external: true
