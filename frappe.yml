@@ -73,7 +73,7 @@ volumes:
       o: nfsvers=4.1,addr=anqci.file.core.windows.net,nolock,soft,rw
       device: ":/anqci/prod-storage/erpnext/sites"
   frappe-logs-volumes:
-      driver: local
+    driver: local
     driver_opts:
       type: nfs
       o: nfsvers=4.1,addr=anqci.file.core.windows.net,nolock,soft,rw
