@@ -4,9 +4,9 @@ services:
   frappe:
     image: pipech/erpnext-docker-debian:v12-py3-latest
     deploy:
-      mode: global
-      restart_policy:
-        condition: on-failure
+      # mode: global
+      # restart_policy:
+      #   condition: on-failure
       replicas: 1
 
     volumes:
