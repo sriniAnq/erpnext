@@ -38,7 +38,8 @@ services:
         target: /etc/conf.d/redis.conf
     command: ["redis-server","/etc/conf.d/redis.conf"]
     networks:
-      - default
+      #- default
+      - swarm-network
 
   redis-queue:
     image: redis:alpine
@@ -49,7 +50,8 @@ services:
         target: /etc/conf.d/redis.conf
     command: ["redis-server","/etc/conf.d/redis.conf"]
     networks:
-      - default
+      #- default
+      - swarm-network
 
   redis-socketio:
     image: redis:alpine
@@ -60,7 +62,8 @@ services:
         target: /etc/conf.d/redis.conf
     command: ["redis-server","/etc/conf.d/redis.conf"]
     networks:
-      - default
+      #- default
+      - swarm-network
 
 volumes:
   frappe-sites-volumes:
